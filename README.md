@@ -150,3 +150,8 @@ Tune the threshold: `RAG_MIN_SCORE=0.55 python3 tutor.py` (lower = search less).
 ./push_to_github.sh                 # creates the repo and pushes (public; add --private)
 ```
 Requires `gh auth login` once. Generated files and personal progress are gitignored.
+
+## For AI agents / contributors
+See [AGENTS.md](AGENTS.md) — architecture, conventions, and an open invitation to explore and branch.
+
+Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
