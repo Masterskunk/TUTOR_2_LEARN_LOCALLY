@@ -88,19 +88,37 @@ def ollama(msgs):
     req=urllib.request.Request(HOST+"/api/chat",data=body,headers={"Content-Type":"application/json"})
     with urllib.request.urlopen(req,timeout=600) as r: return json.loads(r.read())["message"]["content"]
 
+def _num(txt):
+    """Extrae el ultimo numero de una respuesta del alumno (ignora $, comas, 'pesos', %)."""
+    nums=re.findall(r"-?\d[\d,]*\.?\d*", txt.replace(" ",""))
+    try: return float(nums[-1].replace(",","")) if nums else None
+    except Exception: return None
+
+def _extraer_ans(txt):
+    """Lee la respuesta correcta que el tutor pone en una etiqueta oculta [[ANS <numero>]]."""
+    m=re.search(r"\[\[ANS\s+([-\d.,]+)\]\]", txt)
+    if not m: return None
+    try: return float(m.group(1).replace(",",""))
+    except Exception: return None
+
 def process(text):
     text=re.sub(r"<think>.*?</think>","",text,flags=re.S)
     text=re.sub(r"<think>.*$","",text,flags=re.S).strip()
     for mod,ej,pu,nota in re.findall(r"\[\[SCORE\s+(\S+)\s+(\S+)\s+(\d+)\s*([^\]]*)\]\]",text): log_score(mod,ej,pu,nota.strip())
     for mod,pu in re.findall(r"\[\[MASTERED\s+(\S+)\s+(\d+)\]\]",text): mastered(mod,pu)
-    return re.sub(r"\[\[(SCORE|MASTERED)[^\]]*\]\]","",text).strip()
+    return re.sub(r"\[\[(SCORE|MASTERED|ANS)[^\]]*\]\]","",text).strip()
 
 def turno(msgs,user):
-    msgs.append({"role":"user","content":user}); limpio=process(ollama(msgs))
-    if not limpio:
-        limpio=process(ollama(msgs+[{"role":"user","content":"Responde directo en espanol, solo la leccion, una idea, sin etiquetas ni razonamiento."}]))
-    if not limpio: limpio="(No obtuve respuesta del modelo. Escribe de nuevo o 'menu'.)"
-    msgs.append({"role":"assistant","content":limpio}); return limpio
+    msgs.append({"role":"user","content":user})
+    raw=ollama(msgs); limpio=process(raw)
+    intentos=0
+    while not limpio and intentos<2:   # reintenta hasta 2 veces, forzando respuesta directa
+        intentos+=1
+        nudge="Responde AHORA en espanol, directo: solo la leccion o la correccion, una idea, sin <think> ni etiquetas. /no_think"
+        raw=ollama(msgs+[{"role":"user","content":nudge}]); limpio=process(raw)
+    if not limpio: limpio="(El modelo no respondio; intenta de nuevo, o escribe 'menu'.)"
+    esperado=_extraer_ans(raw)   # respuesta correcta del ejercicio (si el tutor la puso)
+    msgs.append({"role":"assistant","content":limpio}); return limpio, esperado
 
 # ---------- MODE A: guided, one module at a time ----------
 def leccion_A(mod=None,avanzar_nota=""):
@@ -112,7 +130,10 @@ def leccion_A(mod=None,avanzar_nota=""):
     sysmsg=base+f"\n\nMATERIAL DE ESTE MODULO (ensena SOLO con esto, un concepto por turno, y genera ejercicios de este material):\n{mat}{pz}\n\n{avanzar_nota}"
     msgs=[{"role":"system","content":sysmsg}]
     print(f"\n{C_S}Modo A (guiado) - {mod}: {d['modulos'][mod]['titulo']}. Escribe para responder. ('menu'=volver){C_0}")
-    try: print(f"\n{C_T}Tutor:{C_0} {turno(msgs,'Hola, empecemos este modulo. Primer concepto, por favor.')}\n")
+    esperado=None
+    try:
+        txt,esperado=turno(msgs,'Hola, empecemos este modulo. Primer concepto, por favor.')
+        print(f"\n{C_T}Tutor:{C_0} {txt}\n")
     except Exception as e:
         print(f"{C_R}No conecto con Ollama ({e}). Arranca: ollama serve ; baja: ollama pull {MODEL}{C_0}"); return
     while True:
@@ -120,7 +141,18 @@ def leccion_A(mod=None,avanzar_nota=""):
         except (EOFError,KeyboardInterrupt): print(); return
         if not u: continue
         if u.lower() in ("menu","/menu"): return
-        try: print(f"\n{C_T}Tutor:{C_0} {turno(msgs,u)}\n")
+        val=_num(u)
+        if esperado is not None and val is not None:
+            ok = abs(val-esperado) <= 0.01 + abs(esperado)*1e-6   # el SCRIPT califica, no el modelo
+            msg=(f"(VEREDICTO DEL SISTEMA: el alumno respondio {u}; la respuesta correcta es {esperado:g}; "
+                 f"es {'CORRECTO' if ok else 'INCORRECTO'}. Respeta este veredicto al pie de la letra: si es "
+                 f"INCORRECTO no digas que es correcto; corrige mostrando el calculo y pide reintentar.) {u}")
+        else:
+            msg=u
+        esperado=None
+        try:
+            txt,esperado=turno(msgs,msg)
+            print(f"\n{C_T}Tutor:{C_0} {txt}\n")
         except Exception as e: print(f"{C_R}Error con Ollama: {e}{C_0}\n")
 
 # ---------- MODE B: vector RAG (ask anything) ----------
