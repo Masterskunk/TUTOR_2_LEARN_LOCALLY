@@ -17,3 +17,4 @@ ingerir_documento.py
 generar_wiki.py
 perfil.py
 push_a_github.sh
+config.json

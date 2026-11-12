@@ -22,7 +22,9 @@ CURSOF=os.path.join(HERE,"curso","curso.json"); REPORTE=os.path.join(ROOT,"repor
 INDICE_VEC=os.path.join(HERE,"indice_vectorial.json"); INDICE_WIKI=os.path.join(HERE,"indice_wiki.json")
 HOST=os.environ.get("OLLAMA_HOST","http://localhost:11434")
 MODEL=os.environ.get("OLLAMA_MODEL","qwen3:14b")
-MODO="A"; MEM="vectorial"
+MODO="A"; MEM="vectorial"; CALC="codigo"; THINK=False; RETO="normal"
+UMBRAL=float(os.environ.get("RAG_MIN_SCORE","0.6"))
+CONFIG=os.path.join(HERE,"config.json")
 C_T="\033[1;96m";C_U="\033[1;93m";C_S="\033[1;92m";C_H="\033[1;95m";C_R="\033[1;91m";C_0="\033[0m"
 
 def load_prog(): return json.load(open(PROG,encoding="utf-8"))
@@ -84,7 +86,7 @@ def material_modulo(mod):
 # ---------- Ollama ----------
 def ollama(msgs):
     print(f"{C_S}(pensando...){C_0}",flush=True)
-    body=json.dumps({"model":MODEL,"messages":msgs,"stream":False,"think":False}).encode()
+    body=json.dumps({"model":MODEL,"messages":msgs,"stream":False,"think":THINK}).encode()
     req=urllib.request.Request(HOST+"/api/chat",data=body,headers={"Content-Type":"application/json"})
     with urllib.request.urlopen(req,timeout=600) as r: return json.loads(r.read())["message"]["content"]
 
@@ -95,8 +97,10 @@ def _num(txt):
     except Exception: return None
 
 def _extraer_ans(txt):
-    """Lee la respuesta correcta que el tutor pone en una etiqueta oculta [[ANS <numero>]]."""
+    """Lee la respuesta correcta: de la etiqueta oculta [[ANS <numero>]] o, si el
+    modelo la escribio a la vista, de '(Respuesta correcta: N)'."""
     m=re.search(r"\[\[ANS\s+([-\d.,]+)\]\]", txt)
+    if not m: m=re.search(r"respuesta correcta[^\d-]*(-?\d[\d,]*\.?\d*)", txt, re.I)
     if not m: return None
     try: return float(m.group(1).replace(",",""))
     except Exception: return None
@@ -106,6 +110,7 @@ def process(text):
     text=re.sub(r"<think>.*$","",text,flags=re.S).strip()
     for mod,ej,pu,nota in re.findall(r"\[\[SCORE\s+(\S+)\s+(\S+)\s+(\d+)\s*([^\]]*)\]\]",text): log_score(mod,ej,pu,nota.strip())
     for mod,pu in re.findall(r"\[\[MASTERED\s+(\S+)\s+(\d+)\]\]",text): mastered(mod,pu)
+    text=re.sub(r"\(\s*(?:respuesta correcta|answer|resultado correcto)[^)]*\)","",text,flags=re.I)  # oculta fugas
     return re.sub(r"\[\[(SCORE|MASTERED|ANS)[^\]]*\]\]","",text).strip()
 
 def turno(msgs,user):
@@ -127,7 +132,10 @@ def leccion_A(mod=None,avanzar_nota=""):
     mat=material_modulo(mod)
     perfil_txt=student_profile.leer_perfil()
     pz=f"\n\nPERFIL DEL ALUMNO (personaliza: insiste en lo debil, no repitas lo dominado):\n{perfil_txt}" if perfil_txt else ""
-    sysmsg=base+f"\n\nMATERIAL DE ESTE MODULO (ensena SOLO con esto, un concepto por turno, y genera ejercicios de este material):\n{mat}{pz}\n\n{avanzar_nota}"
+    tono={"suave":"NIVEL DE RETO SUAVE: explica con mas calma, ejercicios faciles, sube la dificultad despacio, da pistas y mucho animo.",
+          "normal":"NIVEL DE RETO NORMAL: aplica la metodologia de reto estandar.",
+          "intenso":"NIVEL DE RETO INTENSO: explicacion minima, ejercicios mas dificiles y combinados, sube rapido, lanza retos tipo examen, da pocas pistas y exige varios aciertos seguidos para avanzar."}.get(RETO,"")
+    sysmsg=base+f"\n\nMATERIAL DE ESTE MODULO (ensena SOLO con esto, un concepto por turno, y genera ejercicios de este material):\n{mat}{pz}\n\n{avanzar_nota}\n\n{tono}"
     msgs=[{"role":"system","content":sysmsg}]
     print(f"\n{C_S}Modo A (guiado) - {mod}: {d['modulos'][mod]['titulo']}. Escribe para responder. ('menu'=volver){C_0}")
     esperado=None
@@ -142,7 +150,7 @@ def leccion_A(mod=None,avanzar_nota=""):
         if not u: continue
         if u.lower() in ("menu","/menu"): return
         val=_num(u)
-        if esperado is not None and val is not None:
+        if CALC=="codigo" and esperado is not None and val is not None:
             ok = abs(val-esperado) <= 0.01 + abs(esperado)*1e-6   # el SCRIPT califica, no el modelo
             msg=(f"(VEREDICTO DEL SISTEMA: el alumno respondio {u}; la respuesta correcta es {esperado:g}; "
                  f"es {'CORRECTO' if ok else 'INCORRECTO'}. Respeta este veredicto al pie de la letra: si es "
@@ -161,7 +169,7 @@ def leccion_B():
     if not rag.hay_indice(indice):
         falta="generate_wiki.py" if MEM=="wiki" else "build_index.py"
         print(f"{C_R}Falta la memoria '{MEM}'. Corre primero:  python3 {falta}{C_0}"); return
-    umbral=float(os.environ.get("RAG_MIN_SCORE","0.6"))   # similitud minima para considerar "esta en el curso"
+    umbral=UMBRAL   # similitud minima para considerar "esta en el curso" (editable en Mantenimiento)
     print(f"\n{C_S}Modo B (preguntale lo que sea) - memoria: {MEM}. Si no esta en el material, busco en linea. ('menu'=volver){C_0}")
     while True:
         try: q=input(f"\n{C_U}Tu pregunta:{C_0} ").strip()
@@ -324,6 +332,75 @@ def elegir_memoria():
     MEM="wiki" if s=="2" else "vectorial"
     print(f"{C_S}Memoria: {MEM}{C_0}")
 
+def elegir_calculo():
+    global CALC, THINK
+    print(f"\n{C_H}Modo de calculo (calificar aritmetica):{C_0}")
+    print(f"  {C_U}1){C_0} Codigo  (determinista, confiable) [recomendado]")
+    print(f"  {C_U}2){C_0} Modelo  (el modelo razona la aritmetica; usa un modelo de razonamiento)")
+    s=input(f"{C_U}Elige 1 o 2:{C_0} ").strip()
+    if s=="2":
+        CALC="modelo"; THINK=True
+        print(f"{C_S}Calculo: MODELO (pensamiento ENCENDIDO). Recomendado: deepseek-r1:14b o qwen3:14b.{C_0}")
+    else:
+        CALC="codigo"; THINK=False
+        print(f"{C_S}Calculo: CODIGO (determinista).{C_0}")
+
+def cargar_config():
+    global MODEL,MODO,MEM,CALC,THINK,UMBRAL,HOST,RETO
+    if not os.path.exists(CONFIG): return
+    try: c=json.load(open(CONFIG,encoding="utf-8"))
+    except Exception: return
+    MODEL=c.get("modelo",MODEL); MODO=c.get("modo",MODO); MEM=c.get("memoria",MEM)
+    CALC=c.get("calculo",CALC); THINK=(CALC=="modelo"); HOST=c.get("host",HOST); RETO=c.get("reto",RETO)
+    try: UMBRAL=float(c.get("umbral",UMBRAL))
+    except Exception: pass
+
+def guardar_config():
+    try:
+        json.dump({"modelo":MODEL,"modo":MODO,"memoria":MEM,"calculo":CALC,"umbral":UMBRAL,"host":HOST,"reto":RETO},
+                  open(CONFIG,"w",encoding="utf-8"),ensure_ascii=False,indent=2)
+    except Exception: pass
+
+def mantenimiento():
+    global MODEL,MODO,MEM,CALC,THINK,UMBRAL,HOST,RETO
+    while True:
+        print(f"\n{C_H}== Mantenimiento / Configuracion =={C_0}")
+        print(f"  {C_U}1){C_0} Modelo: {MODEL}")
+        print(f"  {C_U}2){C_0} Modo de estudio (A=guiado / B=preguntale): {MODO}")
+        print(f"  {C_U}3){C_0} Tipo de memoria (vectorial/wiki): {MEM}")
+        print(f"  {C_U}4){C_0} Modo de calculo (codigo/modelo): {CALC}")
+        print(f"  {C_U}5){C_0} Umbral RAG 0-1 (mas bajo = busca menos en linea): {UMBRAL}")
+        print(f"  {C_U}6){C_0} Host de Ollama: {HOST}")
+        print(f"  {C_U}7){C_0} Nivel de reto (suave/normal/intenso): {RETO}")
+        print(f"  {C_U}8){C_0} Guardar y volver")
+        print(f"  {C_U}9){C_0} Volver sin guardar")
+        o=input(f"{C_U}Elige:{C_0} ").strip()
+        if o=="1":
+            v=input(f"{C_U}Nuevo modelo (ej. deepseek-r1:14b):{C_0} ").strip()
+            if v: MODEL=v
+        elif o=="2":
+            v=input(f"{C_U}A o B:{C_0} ").strip().upper()
+            if v in ("A","B"): MODO=v
+        elif o=="3":
+            v=input(f"{C_U}'vectorial' o 'wiki':{C_0} ").strip().lower()
+            if v in ("vectorial","wiki"): MEM=v
+        elif o=="4":
+            v=input(f"{C_U}'codigo' o 'modelo':{C_0} ").strip().lower()
+            if v in ("codigo","modelo"): CALC=v; THINK=(CALC=="modelo")
+        elif o=="5":
+            v=input(f"{C_U}Umbral 0-1 (ej. 0.5):{C_0} ").strip()
+            try: UMBRAL=float(v)
+            except Exception: print(f"{C_R}Valor invalido.{C_0}")
+        elif o=="6":
+            v=input(f"{C_U}Host (ej. http://localhost:11434):{C_0} ").strip()
+            if v: HOST=v
+        elif o=="7":
+            v=input(f"{C_U}Nivel 'suave', 'normal' o 'intenso':{C_0} ").strip().lower()
+            if v in ("suave","normal","intenso"): RETO=v
+        elif o=="8": guardar_config(); print(f"{C_S}Guardado en config.json{C_0}"); return
+        elif o=="9": return
+        else: print(f"{C_R}Elige 1-9.{C_0}")
+
 def menu():
     print(f"\n{C_H}========================================{C_0}")
     print(f"{C_H}   TUTOR DE ECONOMIA  (local) - modo {MODO}{C_0}")
@@ -332,20 +409,21 @@ def menu():
     for n,t in [("1",f"{etq}  (modo {MODO}"+(f", memoria {MEM}" if MODO=="B" else "")+")"),
                 ("2","Repetir una leccion o modulo"),("3","Examen de opcion multiple"),
                 ("4","Ver mi avance y perfil"),("5","Generar / abrir reporte HTML"),
-                ("6","Buscar en internet (DuckDuckGo)"),("7",f"Cambiar modo de estudio (ahora: {MODO})"),
-                ("8",f"Cambiar tipo de memoria (ahora: {MEM})"),("9",f"Cambiar modelo ({MODEL})"),("10","Salir")]:
+                ("6","Buscar en internet (DuckDuckGo)"),
+                ("7",f"Mantenimiento / Configuracion  (modelo {MODEL}, calc {CALC}, mem {MEM})"),("8","Salir")]:
         print(f"  {C_U}{n}){C_0} {t}")
     print(f"{C_H}----------------------------------------{C_0}")
 
 def main():
-    global MODEL,MODO
+    global MODEL,MODO,MEM,CALC,THINK,UMBRAL,HOST
     ensure_progreso()
-    print(f"{C_S}Ollama: {HOST}   Modelo: {MODEL}{C_0}")
-    elegir_modo()
+    cargar_config()
+    print(f"{C_S}Ollama: {HOST} | Modelo: {MODEL} | Modo: {MODO} | Memoria: {MEM} | Calculo: {CALC}{C_0}")
+    print(f"{C_S}(Opcion 7 = Mantenimiento para cambiar y guardar estos valores){C_0}")
     while True:
         menu()
         try: op=input(f"{C_U}Elige un numero:{C_0} ").strip()
-        except (EOFError,KeyboardInterrupt): op="10"
+        except (EOFError,KeyboardInterrupt): op="8"
         if op=="1": leccion_A() if MODO=="A" else leccion_B()
         elif op=="2": repetir()
         elif op=="3": examen()
@@ -356,15 +434,12 @@ def main():
         elif op=="6":
             q=input(f"{C_U}Que buscar?:{C_0} ").strip()
             if q: print(f"\n{C_S}{ddg(q)}{C_0}")
-        elif op=="7": elegir_modo()
-        elif op=="8": elegir_memoria()
-        elif op=="9":
-            nm=input(f"{C_U}Modelo:{C_0} ").strip()
-            if nm: MODEL=nm; print(f"{C_S}Modelo -> {MODEL}{C_0}")
-        elif op=="10":
+        elif op=="7": mantenimiento()
+        elif op=="8":
+            guardar_config()
             student_profile.actualizar_perfil()
             d=load_prog();d["ultima_sesion"]=datetime.date.today().isoformat();save_prog(d)
-            print(f"{C_S}Sesion guardada. Hasta la proxima, Carlos.{C_0}"); break
-        else: print(f"{C_R}Escribe un numero del 1 al 10.{C_0}")
+            print(f"{C_S}Configuracion y sesion guardadas. Hasta la proxima, Carlos.{C_0}"); break
+        else: print(f"{C_R}Escribe un numero del 1 al 8.{C_0}")
 
 if __name__=="__main__": main()

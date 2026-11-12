@@ -1,0 +1,9 @@
+{
+  "modelo": "phi4",
+  "modo": "A",
+  "memoria": "vectorial",
+  "calculo": "codigo",
+  "umbral": 0.6,
+  "host": "http://localhost:11434",
+  "reto": "normal"
+}

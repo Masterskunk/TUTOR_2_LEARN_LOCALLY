@@ -155,3 +155,25 @@ Requires `gh auth login` once. Generated files and personal progress are gitigno
 See [AGENTS.md](AGENTS.md) — architecture, conventions, and an open invitation to explore and branch.
 
 Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Configuración (config.json)
+El tutor carga `config.json` al iniciar y lo guarda al salir (opción 8) o desde
+Mantenimiento (opción 7). Para empezar, copia la plantilla:
+```bash
+cp config.example.json config.json
+```
+`config.json` es personal y está en `.gitignore` (no se sube). Campos:
+- **modelo**: modelo de Ollama para el chat (ej. `phi4`, `llama3.1:8b`, `gemma2:9b`, `qwen3:14b`).
+- **modo**: `"A"` (guiado, módulo por módulo) o `"B"` (pregúntale lo que sea / RAG).
+- **memoria**: `"vectorial"` o `"wiki"` (solo aplica en modo B).
+- **calculo**: `"codigo"` (el script califica la aritmética — determinista y confiable)
+  o `"modelo"` (el modelo razona la aritmética; enciende `think:true`, conviene un modelo de razonamiento).
+- **umbral**: 0–1. Similitud mínima para responder desde el curso en modo B; más bajo = busca menos en línea.
+- **host**: URL de Ollama (por defecto `http://localhost:11434`).
+
+### Elegir modelo
+- Con **`calculo: "codigo"`** el script hace las cuentas, así que **cualquier modelo sirve** para enseñar.
+  Opciones occidentales (no chinas): **phi4** (Microsoft, fuerte en matemáticas), **llama3.1:8b** (Meta),
+  **gemma2:9b / 27b** (Google), **mistral-small** (Mistral, UE).
+- **`calculo: "modelo"`** saca más provecho de un modelo de razonamiento; hoy los modelos con
+  pensamiento `<think>` en Ollama son mayormente qwen3 / deepseek-r1. Gracias al modo "codigo" **no los necesitas**.
