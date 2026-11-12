@@ -22,7 +22,7 @@ CURSOF=os.path.join(HERE,"curso","curso.json"); REPORTE=os.path.join(ROOT,"repor
 INDICE_VEC=os.path.join(HERE,"indice_vectorial.json"); INDICE_WIKI=os.path.join(HERE,"indice_wiki.json")
 HOST=os.environ.get("OLLAMA_HOST","http://localhost:11434")
 MODEL=os.environ.get("OLLAMA_MODEL","qwen3:14b")
-MODO="A"; MEM="vectorial"; CALC="codigo"; THINK=False; RETO="normal"
+MODO="A"; MEM="vectorial"; CALC="codigo"; THINK=False; RETO="normal"; IDIOMA="es"
 UMBRAL=float(os.environ.get("RAG_MIN_SCORE","0.6"))
 CONFIG=os.path.join(HERE,"config.json")
 C_T="\033[1;96m";C_U="\033[1;93m";C_S="\033[1;92m";C_H="\033[1;95m";C_R="\033[1;91m";C_0="\033[0m"
@@ -135,7 +135,7 @@ def leccion_A(mod=None,avanzar_nota=""):
     tono={"suave":"NIVEL DE RETO SUAVE: explica con mas calma, ejercicios faciles, sube la dificultad despacio, da pistas y mucho animo.",
           "normal":"NIVEL DE RETO NORMAL: aplica la metodologia de reto estandar.",
           "intenso":"NIVEL DE RETO INTENSO: explicacion minima, ejercicios mas dificiles y combinados, sube rapido, lanza retos tipo examen, da pocas pistas y exige varios aciertos seguidos para avanzar."}.get(RETO,"")
-    sysmsg=base+f"\n\nMATERIAL DE ESTE MODULO (ensena SOLO con esto, un concepto por turno, y genera ejercicios de este material):\n{mat}{pz}\n\n{avanzar_nota}\n\n{tono}"
+    sysmsg=base+f"\n\nMATERIAL DE ESTE MODULO (ensena SOLO con esto, un concepto por turno, y genera ejercicios de este material):\n{mat}{pz}\n\n{avanzar_nota}\n\n{tono}\n\n{instr_idioma()}"
     msgs=[{"role":"system","content":sysmsg}]
     print(f"\n{C_S}Modo A (guiado) - {mod}: {d['modulos'][mod]['titulo']}. Escribe para responder. ('menu'=volver){C_0}")
     esperado=None
@@ -185,7 +185,7 @@ def leccion_B():
             chunks=[c for _,c in scored]
             ctx="\n".join(f"[{c['modulo']}] {c['texto']}" for c in chunks)
             print(f"{C_S}(fuentes del curso: {', '.join(c['modulo'] for c in chunks)}){C_0}")
-            msgs=[{"role":"system","content":"Eres un tutor de economia bilingue ES/EN. Responde en espanol, claro y breve, usando SOLO el contexto dado. Da el termino en ingles al lado de los conceptos clave."},
+            msgs=[{"role":"system","content":instr_idioma()+" Eres un tutor bilingue ES/EN. Responde claro y breve usando SOLO el contexto dado."},
                   {"role":"user","content":f"CONTEXTO DEL CURSO:\n{ctx}\n\nPREGUNTA: {q}"}]
             try: print(f"\n{C_T}Tutor:{C_0} {process(ollama(msgs))}\n")
             except Exception as e: print(f"{C_R}Error con Ollama: {e}{C_0}\n")
@@ -196,7 +196,7 @@ def leccion_B():
             if not res:
                 print(f"{C_R}No pude buscar en linea (sin internet o sin resultados).{C_0}\n"); continue
             ctx="\n".join(f"- {r['title']}: {r['snippet']} (fuente: {r['url']})" for r in res)
-            msgs=[{"role":"system","content":"Responde en espanol, claro y breve, usando estos resultados de internet. Aclara que la respuesta viene de la web, no del curso. Termino clave en ingles al lado."},
+            msgs=[{"role":"system","content":instr_idioma()+" Responde claro y breve usando estos resultados de internet. Aclara que la respuesta viene de la web, no del curso."},
                   {"role":"user","content":f"RESULTADOS WEB:\n{ctx}\n\nPREGUNTA: {q}"}]
             try: ans=process(ollama(msgs))
             except Exception as e: print(f"{C_R}Error con Ollama: {e}{C_0}\n"); continue
@@ -345,24 +345,29 @@ def elegir_calculo():
         CALC="codigo"; THINK=False
         print(f"{C_S}Calculo: CODIGO (determinista).{C_0}")
 
+def instr_idioma():
+    return ("Teach and reply in ENGLISH, clear and simple; put the key term in Spanish beside it."
+            if IDIOMA=="en" else
+            "Ensena y responde en ESPANOL, claro y simple; pon el termino clave en ingles al lado.")
+
 def cargar_config():
-    global MODEL,MODO,MEM,CALC,THINK,UMBRAL,HOST,RETO
+    global MODEL,MODO,MEM,CALC,THINK,UMBRAL,HOST,RETO,IDIOMA
     if not os.path.exists(CONFIG): return
     try: c=json.load(open(CONFIG,encoding="utf-8"))
     except Exception: return
     MODEL=c.get("modelo",MODEL); MODO=c.get("modo",MODO); MEM=c.get("memoria",MEM)
-    CALC=c.get("calculo",CALC); THINK=(CALC=="modelo"); HOST=c.get("host",HOST); RETO=c.get("reto",RETO)
+    CALC=c.get("calculo",CALC); THINK=(CALC=="modelo"); HOST=c.get("host",HOST); RETO=c.get("reto",RETO); IDIOMA=c.get("idioma",IDIOMA)
     try: UMBRAL=float(c.get("umbral",UMBRAL))
     except Exception: pass
 
 def guardar_config():
     try:
-        json.dump({"modelo":MODEL,"modo":MODO,"memoria":MEM,"calculo":CALC,"umbral":UMBRAL,"host":HOST,"reto":RETO},
+        json.dump({"modelo":MODEL,"modo":MODO,"memoria":MEM,"calculo":CALC,"umbral":UMBRAL,"host":HOST,"reto":RETO,"idioma":IDIOMA},
                   open(CONFIG,"w",encoding="utf-8"),ensure_ascii=False,indent=2)
     except Exception: pass
 
 def mantenimiento():
-    global MODEL,MODO,MEM,CALC,THINK,UMBRAL,HOST,RETO
+    global MODEL,MODO,MEM,CALC,THINK,UMBRAL,HOST,RETO,IDIOMA
     while True:
         print(f"\n{C_H}== Mantenimiento / Configuracion =={C_0}")
         print(f"  {C_U}1){C_0} Modelo: {MODEL}")
@@ -372,8 +377,9 @@ def mantenimiento():
         print(f"  {C_U}5){C_0} Umbral RAG 0-1 (mas bajo = busca menos en linea): {UMBRAL}")
         print(f"  {C_U}6){C_0} Host de Ollama: {HOST}")
         print(f"  {C_U}7){C_0} Nivel de reto (suave/normal/intenso): {RETO}")
-        print(f"  {C_U}8){C_0} Guardar y volver")
-        print(f"  {C_U}9){C_0} Volver sin guardar")
+        print(f"  {C_U}8){C_0} Idioma del tutor (es/en): {IDIOMA}")
+        print(f"  {C_U}9){C_0} Guardar y volver")
+        print(f"  {C_U}10){C_0} Volver sin guardar")
         o=input(f"{C_U}Elige:{C_0} ").strip()
         if o=="1":
             v=input(f"{C_U}Nuevo modelo (ej. deepseek-r1:14b):{C_0} ").strip()
@@ -397,9 +403,12 @@ def mantenimiento():
         elif o=="7":
             v=input(f"{C_U}Nivel 'suave', 'normal' o 'intenso':{C_0} ").strip().lower()
             if v in ("suave","normal","intenso"): RETO=v
-        elif o=="8": guardar_config(); print(f"{C_S}Guardado en config.json{C_0}"); return
-        elif o=="9": return
-        else: print(f"{C_R}Elige 1-9.{C_0}")
+        elif o=="8":
+            v=input(f"{C_U}Idioma 'es' o 'en':{C_0} ").strip().lower()
+            if v in ("es","en"): IDIOMA=v
+        elif o=="9": guardar_config(); print(f"{C_S}Guardado en config.json{C_0}"); return
+        elif o=="10": return
+        else: print(f"{C_R}Elige 1-10.{C_0}")
 
 def menu():
     print(f"\n{C_H}========================================{C_0}")

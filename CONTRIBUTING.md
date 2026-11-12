@@ -1,33 +1,35 @@
 # Contributing
 
-Thanks for your interest in **TUTOR_2_LEARN_LOCALLY**! Contributions — bug
-fixes, new features, docs, more sample courses — are welcome.
+Thanks for your interest in **TUTOR_2_LEARN_LOCALLY**! Contributions — bug fixes,
+new features, docs, more sample courses — are welcome.
 
 ## Setup
 1. Install [Ollama](https://ollama.com) and Python 3.10+.
 2. Pull the models:
    ```bash
-   ollama pull qwen3:14b          # chat model (math + Spanish)
+   ollama pull phi4               # chat model (strong at math; any model works)
    ollama pull nomic-embed-text   # embeddings (mode B / wiki)
-   pip3 install pypdf             # only needed for PDF ingestion
+   pip3 install pypdf             # only for PDF ingestion
    ```
-3. Run it: `python3 tutor.py` (an example economics course ships in `curso/`).
+3. Run it: `python3 tutor.py` (an example course ships in `curso/`).
 
 ## Project layout
 `curso/curso.json` is the single source of truth; everything else is derived
-from it. See **[AGENTS.md](AGENTS.md)** for the full architecture, data flow,
-and the design conventions this project relies on. Read it before a non-trivial
-change.
+from it. See **[AGENTS.md](AGENTS.md)** for the full architecture, data flow and
+design conventions. Read it before a non-trivial change.
 
 ## Conventions (short version)
-- **Code and comments in English; user-facing printed text in Spanish** (that's
-  what the learner reads — don't translate `print()` output).
+- **Code and comments in English.** The repo documentation is English too.
+- The tutor's **teaching content stays in Spanish** (`tutor_prompt.md`,
+  `curso/curso.json`, `banco.json`) — it's a bilingual ES/EN tutor and that
+  output is the product. Don't translate the printed/teaching text.
 - Every generator **resumes by default** and supports **`--restart`**; all save
   incrementally. Keep that contract.
-- **Dependency-light**: standard library + Ollama HTTP, plus `pypdf` for PDFs.
+- **Dependency-light:** standard library + Ollama HTTP, plus `pypdf` for PDFs.
   Avoid heavy dependencies unless they're optional.
 - **Never commit generated or personal data** — `progreso/`, `indice_*.json`,
-  `wiki/`, `reporte.html`, `*.bak-*` and `.ingest_state.json` are gitignored.
+  `wiki/`, `reporte.html`, `*.bak-*`, `.ingest_state.json`, `config.json` are
+  gitignored.
 
 ## Workflow
 ```bash

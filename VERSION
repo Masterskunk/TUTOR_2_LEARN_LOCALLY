@@ -2,14 +2,15 @@ TUTOR_2_LEARN_LOCALLY
 v1.3.0 (2026-11-12)
 
 Changelog:
-- v1.0.0  Tutor local (Ollama); modos A (guiado) y B (RAG vectorial);
-          examenes de opcion multiple; reporte HTML en vivo.
-- v1.1.0  Ingesta de PDF/TXT/MD -> curso; LLM-wiki como 2a memoria
-          (selector); perfil del alumno personalizado.
-- v1.2.0  Ingesta robusta (format=json, normalizador, resume + --restart,
-          guardado incremental); regenerador de examenes; opciones de
-          examen barajadas; fallback online (DuckDuckGo) con enlaces.
-- v1.3.0  Config persistente (config.json) + menu de Mantenimiento;
-          calificacion determinista con [[ANS]] + anti-fuga de respuestas;
-          modo de calculo codigo/modelo (think) y modelos occidentales;
-          metodologia de reto (challenge) con nivel suave/normal/intenso.
+- v1.0.0  Local Ollama tutor; modes A (guided) and B (vector RAG);
+          multiple-choice quizzes; live HTML progress report.
+- v1.1.0  PDF/TXT/MD ingestion -> course; LLM-wiki as a second memory type
+          (selectable); personalized student profile.
+- v1.2.0  Robust ingestion (Ollama format=json, module normalizer, resume +
+          --restart on every generator, incremental/crash-safe saves);
+          standalone quiz regenerator; shuffled quiz options; mode B online
+          fallback (DuckDuckGo) with reference links.
+- v1.3.0  Persistent config (config.json) + in-app Maintenance menu;
+          deterministic arithmetic grading ([[ANS]]) with answer-leak guard;
+          calc mode code/model (reasoning) and Western model guidance;
+          live challenge methodology with intensity easy/normal/intense.
