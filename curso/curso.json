@@ -1,0 +1,99 @@
+{
+ "M1": {"titulo":"Numeros, fracciones y decimales","porque_importa":"Leer bien precios y centavos es la base para todo lo demas en la bolsa.","glosario":{"valor posicional":"place value","punto decimal":"decimal point","fraccion":"fraction"},
+  "lecciones":[
+   {"concepto":"Valor posicional","texto":"Cada digito vale segun su lugar; de derecha a izquierda cada lugar vale 10 veces mas. La coma separa los miles y el punto separa pesos de centavos.","ejemplo":"En 1,250.50 el 2 vale 200 y el .50 son 50 centavos."},
+   {"concepto":"Comparar decimales","texto":"Para ver cual es mayor, alinea el punto decimal y compara lugar por lugar de izquierda a derecha. Un cero a la derecha no cambia el valor.","ejemplo":"18.9 es igual a 18.90, y 18.90 es mayor que 18.40."},
+   {"concepto":"Fraccion como division","texto":"La raya de una fraccion significa dividir: arriba entre abajo. Fraccion y decimal son lo mismo escrito distinto.","ejemplo":"1/2=0.50, 1/4=0.25, 3/4=0.75; un cuarto de peso son 25 centavos."}
+  ]},
+ "M2": {"titulo":"Porcentajes y regla de tres","porque_importa":"Casi todo en la bolsa se mueve en porcentajes: rendimientos, comisiones, impuestos.","glosario":{"porcentaje":"percentage","regla de tres":"rule of three","variacion":"change"},
+  "lecciones":[
+   {"concepto":"Que es un porcentaje","texto":"Porcentaje significa 'por cada 100'. 10% son 10 de cada 100, que es lo mismo que dividir entre 10.","ejemplo":"10% de 1,500 = 1,500/10 = 150."},
+   {"concepto":"Regla de tres","texto":"Si el 100% es el total, para sacar X% multiplicas el total por X y divides entre 100. Tambien sirve al reves: si conoces una parte y su porcentaje, hallas el total.","ejemplo":"16% de 250 = 250x16/100 = 40. Si 20% = 40, entonces 100% = 40x5 = 200."},
+   {"concepto":"Subida o bajada simple","texto":"Para un cambio chico, la diferencia sobre el valor original, en porcentaje.","ejemplo":"Una accion sube de 100 a 103: subio 3 sobre 100 = 3%."}
+  ]},
+ "M3": {"titulo":"Razones, proporciones y variacion %","porque_importa":"Medir bien cuanto subio o bajo algo evita enganos comunes en el mercado.","glosario":{"variacion porcentual":"percent change","proporcion":"proportion"},
+  "lecciones":[
+   {"concepto":"Variacion porcentual","texto":"Se calcula (nuevo menos viejo) dividido entre el viejo, por 100. Positivo es subida, negativo es bajada.","ejemplo":"De 50 a 75: (75-50)/50 = 50%. De 200 a 150: (150-200)/200 = -25%."},
+   {"concepto":"La asimetria de los porcentajes","texto":"Subir 50% y luego bajar 50% NO regresa al inicio, porque la bajada se aplica sobre una base mas grande.","ejemplo":"100 sube 50% = 150; 150 baja 50% = 75, no 100."}
+  ]},
+ "M4": {"titulo":"Potencias, raices y crecimiento","porque_importa":"El crecimiento del dinero (interes compuesto) es una potencia aplicada en el tiempo.","glosario":{"potencia":"power","exponente":"exponent","raiz":"root"},
+  "lecciones":[
+   {"concepto":"Potencias","texto":"El exponente dice cuantas veces se multiplica el numero por si mismo.","ejemplo":"2^3 = 2x2x2 = 8; 10^2 = 100."},
+   {"concepto":"Raices","texto":"La raiz es la operacion inversa de la potencia: pregunta que numero, multiplicado por si mismo, da el resultado.","ejemplo":"La raiz cuadrada de 9 es 3, porque 3x3=9."}
+  ]},
+ "M5": {"titulo":"Algebra basica (despejar)","porque_importa":"Despejar te deja calcular cualquier dato que falte en una formula financiera.","glosario":{"ecuacion":"equation","despejar":"solve for","incognita":"unknown"},
+  "lecciones":[
+   {"concepto":"La ecuacion como balanza","texto":"Una ecuacion esta en equilibrio: lo que le haces a un lado, se lo haces al otro. Para despejar la incognita, deshaces lo que le acompana con la operacion contraria.","ejemplo":"x+8=20 -> x=20-8=12. 3x=45 -> x=45/3=15. x/4=7 -> x=7x4=28."},
+   {"concepto":"Formula clave del dinero","texto":"Monto = precio x cantidad. Si conoces dos, despejas el tercero.","ejemplo":"Monto=600 y precio=50 -> cantidad = 600/50 = 12."}
+  ]},
+ "M6": {"titulo":"Estadistica basica","porque_importa":"La volatilidad (dispersion) es la medida de riesgo de una accion.","glosario":{"media":"mean","mediana":"median","volatilidad":"volatility"},
+  "lecciones":[
+   {"concepto":"Media y mediana","texto":"La media es la suma dividida entre cuantos datos hay. La mediana es el valor de en medio cuando los ordenas.","ejemplo":"Media de 10,20,30 = 60/3 = 20. Mediana de 3,9,4 (ordenado 3,4,9) = 4."},
+   {"concepto":"Dispersion y volatilidad","texto":"La desviacion mide que tan lejos estan los datos del promedio. En bolsa, mucha variacion dia a dia significa alta volatilidad y mas riesgo.","ejemplo":"Una accion que salta de 100 a 90 a 110 es mas volatil que una que se queda cerca de 100."}
+  ]},
+ "M7": {"titulo":"Interes simple, compuesto e inflacion","porque_importa":"Distinguir rendimiento nominal de real es clave para no perder contra la inflacion.","glosario":{"interes compuesto":"compound interest","inflacion":"inflation","rendimiento real":"real return"},
+  "lecciones":[
+   {"concepto":"Interes simple vs compuesto","texto":"El interes simple se calcula siempre sobre el capital inicial. El compuesto gana interes tambien sobre los intereses ya ganados.","ejemplo":"1,000 al 10%: simple da 100 por ano. Compuesto a 2 anos: 1,100 y luego 1,210."},
+   {"concepto":"Inflacion y rendimiento real","texto":"La inflacion es cuanto suben los precios. Tu ganancia real es el rendimiento menos la inflacion.","ejemplo":"Si inflacion 5% y tu inversion rinde 5%, tu ganancia real es 0%: apenas empatas."}
+  ]},
+ "M8": {"titulo":"Oferta, demanda y precio","porque_importa":"El precio de una accion se forma igual que cualquier precio: oferta contra demanda.","glosario":{"oferta":"supply","demanda":"demand","equilibrio":"equilibrium"},
+  "lecciones":[
+   {"concepto":"Como se forma el precio","texto":"La demanda es cuanto quieren comprar; la oferta cuanto hay para vender. El precio de equilibrio es donde se cruzan.","ejemplo":"Mas demanda con la misma oferta empuja el precio hacia arriba."},
+   {"concepto":"Escasez y exceso","texto":"Si al precio actual la gente quiere mas de lo que hay, es escasez y el precio tiende a subir. Si sobra producto, el precio baja.","ejemplo":"Mas oferta que demanda = los vendedores bajan precio."}
+  ]},
+ "M9": {"titulo":"Que es una accion, la BMV y leer Yahoo Finance","porque_importa":"Es donde todo lo anterior aterriza: una cotizacion real.","glosario":{"accion":"share/stock","bid":"bid (compra)","ask":"ask (venta)","capitalizacion":"market cap"},
+  "lecciones":[
+   {"concepto":"Accion y libro de ordenes","texto":"Una accion es una parte de propiedad de una empresa. El bid es el mejor precio de compra y el ask el mejor de venta; el libro de ordenes los lista.","ejemplo":"Si el bid es 50.00 y el ask 50.10, compras a 50.10 y vendes a 50.00."},
+   {"concepto":"Leer una cotizacion en Yahoo Finance","texto":"Precio y cambio % (verde sube, rojo baja); rango del dia y de 52 semanas; volumen vs volumen promedio; market cap = precio x numero de acciones; P/E como razon.","ejemplo":"Market cap: precio 100 x 1,000 millones de acciones = 100 mil millones."}
+  ]},
+ "M10": {"titulo":"Velas japonesas: OHLC y por que una vela es roja","porque_importa":"Las velas resumen la batalla entre compradores y vendedores en cada periodo.","glosario":{"vela":"candle","cuerpo":"body","mecha":"wick","alcista":"bullish","bajista":"bearish"},
+  "lecciones":[
+   {"concepto":"OHLC y partes de la vela","texto":"Cada vela tiene cuatro datos: apertura, maximo, minimo y cierre (OHLC). El cuerpo va de apertura a cierre; las mechas marcan el maximo y minimo.","ejemplo":"Un cuerpo corto con mechas largas = mucho vaiven pero cierre cerca de la apertura."},
+   {"concepto":"Por que una vela es roja","texto":"Una vela es ROJA cuando el cierre es MENOR que la apertura: ganaron los vendedores en ese periodo (bajista). Es VERDE cuando el cierre es mayor que la apertura (alcista).","ejemplo":"Abre en 100 y cierra en 97 -> vela roja; abre 100 cierra 103 -> vela verde."}
+  ]},
+ "M11": {"titulo":"Volumen: acumulacion vs distribucion","porque_importa":"El volumen dice si un movimiento de precio tiene fuerza real detras.","glosario":{"volumen":"volume","acumulacion":"accumulation","distribucion":"distribution"},
+  "lecciones":[
+   {"concepto":"Que es el volumen","texto":"El volumen es cuantas acciones cambiaron de manos en el periodo. Confirma si el movimiento del precio es convincente.","ejemplo":"Un precio que sube con volumen muy bajo es un movimiento debil."},
+   {"concepto":"Acumulacion vs distribucion","texto":"Precio subiendo con volumen alto sugiere acumulacion (compra fuerte). Velas rojas con volumen alto cerca de maximos sugiere distribucion (venta fuerte).","ejemplo":"Varias velas rojas grandes con mucho volumen tras una subida larga: posible distribucion."}
+  ]},
+ "M12": {"titulo":"Integracion: leer un grafico real paso a paso","porque_importa":"Juntar precio, velas y volumen es como de verdad se lee un grafico.","glosario":{"rango del dia":"day's range","rango de 52 semanas":"52-week range"},
+  "lecciones":[
+   {"concepto":"Leer precio y volumen juntos","texto":"Para juzgar un movimiento mira el color y tamano de la vela junto con el volumen. Fuerza = cuerpo amplio mas volumen alto en la misma direccion.","ejemplo":"Vela verde grande con volumen alto = fuerte presion compradora."},
+   {"concepto":"Ubicar el precio","texto":"El rango del dia te dice el minimo y maximo de hoy; el de 52 semanas, donde esta el precio respecto a su ano.","ejemplo":"Precio cerca del maximo de 52 semanas = la accion esta en zona alta de su ano."}
+  ]},
+ "M13": {"titulo":"Tasas de interes y Banxico","porque_importa":"Las tasas mueven todo: creditos, cetes, el peso y la bolsa.","glosario":{"banco central":"central bank","tasa de referencia":"policy rate"},
+  "lecciones":[
+   {"concepto":"Que hace Banxico","texto":"Banxico es el banco central de Mexico y fija la tasa de referencia, la tasa base que arrastra a las demas (creditos, hipotecas, cetes).","ejemplo":"Si Banxico sube la tasa, pedir prestado se vuelve mas caro."},
+   {"concepto":"Efecto de subir o bajar tasas","texto":"Tasas mas altas frenan la inflacion pero tambien enfrian la economia; tasas mas bajas la estimulan.","ejemplo":"Suben tasas -> menos gasto a credito -> baja la inflacion."}
+  ]},
+ "M14": {"titulo":"Inflacion y estanflacion","porque_importa":"La estanflacion es el escenario mas dificil para inversionistas y bancos centrales.","glosario":{"inflacion":"inflation","estanflacion":"stagflation","estancamiento":"stagnation"},
+  "lecciones":[
+   {"concepto":"Que es la estanflacion","texto":"Es la combinacion de inflacion alta con economia estancada (poco o nulo crecimiento) y desempleo al mismo tiempo. Es rara y dolorosa.","ejemplo":"Los precios suben pero la economia no crece y hay desempleo."},
+   {"concepto":"Por que es tan dificil","texto":"Las herramientas chocan: subir tasas frena la inflacion pero dania aun mas el empleo y el crecimiento. No hay salida comoda.","ejemplo":"El caso clasico fue la crisis del petroleo de los anos 70."}
+  ]},
+ "M15": {"titulo":"Politica economica (monetaria y fiscal)","porque_importa":"Entender quien mueve que te ayuda a anticipar como reacciona el mercado.","glosario":{"politica monetaria":"monetary policy","politica fiscal":"fiscal policy"},
+  "lecciones":[
+   {"concepto":"Monetaria vs fiscal","texto":"La politica MONETARIA la maneja el banco central (Banxico) con las tasas y el dinero. La FISCAL la maneja el gobierno con el gasto publico y los impuestos.","ejemplo":"Banxico sube tasas = monetaria. El gobierno sube el gasto = fiscal."},
+   {"concepto":"Expansiva vs restrictiva","texto":"Expansiva mete mas dinero a la economia (bajar impuestos, mas gasto, bajar tasas). Restrictiva la frena (subir tasas, subir impuestos).","ejemplo":"Subir la tasa de interes es politica monetaria restrictiva."}
+  ]},
+ "M16": {"titulo":"Bonos y renta fija (CETES)","porque_importa":"Los CETES son la opcion de bajo riesgo mas comun para un inversionista mexicano.","glosario":{"bono":"bond","renta fija":"fixed income","CETES":"Mexican T-bills"},
+  "lecciones":[
+   {"concepto":"Que es un bono y los CETES","texto":"Un bono es un prestamo que le haces a un gobierno o empresa a cambio de intereses. Los CETES son deuda de corto plazo del gobierno mexicano. Se llama renta fija porque el rendimiento se conoce de antemano.","ejemplo":"Compras un CETE y sabes desde el inicio cuanto te pagara."},
+   {"concepto":"Precio del bono y tasas","texto":"Si suben las tasas, el precio de un bono ya emitido baja, porque los nuevos pagan mas. La deuda del gobierno es de los activos mas seguros del pais.","ejemplo":"Tienes un bono al 8%; salen nuevos al 10%: el tuyo vale menos si lo vendes."}
+  ]},
+ "M17": {"titulo":"Tipo de cambio USD/MXN","porque_importa":"El peso frente al dolar afecta precios, tus inversiones en USD y la inflacion.","glosario":{"tipo de cambio":"exchange rate","depreciacion":"depreciation","apreciacion":"appreciation"},
+  "lecciones":[
+   {"concepto":"Que es el tipo de cambio","texto":"USD/MXN es cuantos pesos cuesta un dolar. Si el numero sube, el peso se deprecia (vale menos); si baja, se aprecia.","ejemplo":"USD/MXN de 17 a 18: el peso se deprecio, el dolar se encarecio."},
+   {"concepto":"Efecto en tu bolsillo","texto":"Un peso mas debil encarece las importaciones y lo que esta en dolares; uno mas fuerte las abarata.","ejemplo":"Peso debil = tus compras en USD (y acciones gringas) cuestan mas pesos."}
+  ]},
+ "M18": {"titulo":"Diversificacion y riesgo","porque_importa":"Diversificar es la forma mas simple de bajar riesgo sin adivinar el futuro.","glosario":{"diversificacion":"diversification","riesgo":"risk"},
+  "lecciones":[
+   {"concepto":"No todos los huevos en una canasta","texto":"Diversificar es repartir tu dinero en varios activos distintos para no depender de uno solo. El objetivo es reducir el riesgo.","ejemplo":"Si tienes 5 empresas de sectores distintos, que a una le vaya mal te pega menos."},
+   {"concepto":"Riesgo y rendimiento","texto":"En general, mayor rendimiento esperado viene con mayor riesgo. No existe mucho retorno sin algo de riesgo.","ejemplo":"Un CETE rinde poco pero es seguro; una accion chica puede rendir mucho o caer fuerte."}
+  ]},
+ "M19": {"titulo":"ETFs y fondos indizados","porque_importa":"Un ETF indizado te da diversificacion barata en una sola compra.","glosario":{"ETF":"ETF","fondo indizado":"index fund","IPC":"Mexican stock index"},
+  "lecciones":[
+   {"concepto":"Que es un ETF","texto":"Un ETF es una canasta de muchos activos que cotiza en bolsa como si fuera una sola accion. Compras uno y te llevas decenas o cientos de empresas de un jalon.","ejemplo":"Un ETF del IPC te da las grandes empresas de la BMV en una compra."},
+   {"concepto":"Fondos indizados","texto":"Un fondo indizado busca replicar un indice (como el IPC o el S&P 500) en vez de escoger acciones una por una. Es diversificacion barata.","ejemplo":"El IPC es el indice principal de la Bolsa Mexicana de Valores."}
+  ]}
+}

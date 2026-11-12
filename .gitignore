@@ -1,0 +1,19 @@
+# Datos personales y archivos generados (NO se suben)
+progreso/
+indice_vectorial.json
+reporte.html
+*.bak-*
+__pycache__/
+*.pyc
+.DS_Store
+ejemplos/*.pdf
+wiki/
+indice_wiki.json
+.ingest_state.json
+
+# Copias con nombre en español (duplicados temporales — no subir a GitHub)
+construir_indice.py
+ingerir_documento.py
+generar_wiki.py
+perfil.py
+push_a_github.sh

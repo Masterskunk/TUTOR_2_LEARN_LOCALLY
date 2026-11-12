@@ -1,0 +1,2 @@
+# Solo para ingerir PDFs. Todo lo demas es libreria estandar de Python + Ollama.
+pypdf>=4.0

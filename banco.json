@@ -1,0 +1,120 @@
+{
+  "M1": [
+    {"q":"¿Cuál número es mayor?","op":{"a":"7.08","b":"7.8","c":"7.5","d":"7.19"},"ok":"b","exp":"7.8 = 7.80; 80 centésimos supera a 50 o 19."},
+    {"q":"¾ de peso, ¿cuántos centavos son?","op":{"a":"34","b":"43","c":"75","d":"70"},"ok":"c","exp":"¾ = 3÷4 = 0.75 = 75 centavos."},
+    {"q":"En $3,407.25, ¿cuánto vale el dígito 4?","op":{"a":"4 unidades","b":"40","c":"400","d":"4000"},"ok":"c","exp":"Está en las centenas: 400."},
+    {"q":"1 ÷ 5 = ?","op":{"a":"0.15","b":"0.20","c":"0.50","d":"0.25"},"ok":"b","exp":"Un quinto = 0.20."},
+    {"q":"Ordena de menor a mayor: 7.5, 7.08, 7.55","op":{"a":"7.08, 7.5, 7.55","b":"7.5, 7.08, 7.55","c":"7.55, 7.5, 7.08","d":"7.08, 7.55, 7.5"},"ok":"a","exp":"7.08 < 7.50 < 7.55."}
+  ],
+  "M2": [
+    {"q":"10% de 1,500 pesos = ?","op":{"a":"15","b":"150","c":"1,350","d":"100"},"ok":"b","exp":"10% = dividir entre 10 = 150."},
+    {"q":"Una acción sube de 100 a 103. ¿Cuánto subió en %?","op":{"a":"3%","b":"0.3%","c":"30%","d":"13%"},"ok":"a","exp":"3 sobre 100 = 3%."},
+    {"q":"25% de 80 = ?","op":{"a":"25","b":"16","c":"20","d":"40"},"ok":"c","exp":"25% = un cuarto = 20."},
+    {"q":"Si el 20% de algo es 40, ¿cuánto es el total?","op":{"a":"80","b":"120","c":"200","d":"400"},"ok":"c","exp":"Regla de tres: 100% = 40 x 5 = 200."},
+    {"q":"IVA 16% sobre 250 = ?","op":{"a":"16","b":"40","c":"25","d":"400"},"ok":"b","exp":"0.16 x 250 = 40."}
+  ],
+  "M3": [
+    {"q":"Un precio pasa de 50 a 75. ¿Variación %?","op":{"a":"+25%","b":"+50%","c":"+75%","d":"+150%"},"ok":"b","exp":"25 sobre 50 = 50%."},
+    {"q":"Sube 50% y luego baja 50%. ¿Vuelves al inicio?","op":{"a":"Sí","b":"No, quedas abajo","c":"No, quedas arriba","d":"Depende"},"ok":"b","exp":"100 ->150 ->75; el -50% se aplica a una base mayor."},
+    {"q":"De 200 a 150, ¿variación %?","op":{"a":"-50","b":"-25%","c":"-75%","d":"-15%"},"ok":"b","exp":"50 sobre 200 = 25%."},
+    {"q":"Una acción cae de 120 a 90. ¿Variación %?","op":{"a":"-25%","b":"-30%","c":"-20%","d":"-33%"},"ok":"a","exp":"Cayó 30 sobre 120 = 25%."}
+  ],
+  "M4": [
+    {"q":"2^3 = ?","op":{"a":"6","b":"8","c":"9","d":"5"},"ok":"b","exp":"2x2x2 = 8."},
+    {"q":"10^2 = ?","op":{"a":"20","b":"100","c":"1000","d":"12"},"ok":"b","exp":"10x10 = 100."},
+    {"q":"5^2 = ?","op":{"a":"10","b":"25","c":"52","d":"15"},"ok":"b","exp":"5x5 = 25."},
+    {"q":"2^4 = ?","op":{"a":"8","b":"16","c":"6","d":"24"},"ok":"b","exp":"2x2x2x2 = 16."}
+  ],
+  "M5": [
+    {"q":"Si x + 8 = 20, ¿cuánto vale x?","op":{"a":"28","b":"12","c":"160","d":"10"},"ok":"b","exp":"Despejas: x = 20 - 8 = 12."},
+    {"q":"Si 3x = 45, ¿cuánto vale x?","op":{"a":"15","b":"48","c":"135","d":"42"},"ok":"a","exp":"x = 45 ÷ 3 = 15."},
+    {"q":"Monto = precio × cantidad. Si monto=600 y precio=50, ¿cantidad?","op":{"a":"12","b":"650","c":"30000","d":"50"},"ok":"a","exp":"cantidad = 600 ÷ 50 = 12."},
+    {"q":"Despeja x: x ÷ 4 = 7","op":{"a":"3","b":"11","c":"28","d":"1.75"},"ok":"c","exp":"x = 7 × 4 = 28."}
+  ],
+  "M6": [
+    {"q":"Promedio (media) de 10, 20 y 30 = ?","op":{"a":"20","b":"30","c":"15","d":"60"},"ok":"a","exp":"(10+20+30)/3 = 60/3 = 20."},
+    {"q":"Mediana de 3, 9 y 4 (ordénalos primero)","op":{"a":"9","b":"3","c":"4","d":"5.3"},"ok":"c","exp":"Ordenado: 3,4,9 -> el de en medio es 4."},
+    {"q":"La desviación/volatilidad mide...","op":{"a":"el promedio","b":"qué tan dispersos están los datos","c":"el total","d":"el máximo"},"ok":"b","exp":"Mide cuánto se alejan los datos del promedio."},
+    {"q":"Una acción que varía mucho día a día tiene...","op":{"a":"baja volatilidad","b":"alta volatilidad","c":"alto promedio","d":"mediana alta"},"ok":"b","exp":"Mucha variación = alta volatilidad = más riesgo."}
+  ],
+  "M7": [
+    {"q":"Interés SIMPLE: 1,000 al 10% anual por 1 año. ¿Interés ganado?","op":{"a":"10","b":"100","c":"110","d":"1100"},"ok":"b","exp":"10% de 1,000 = 100 (el total sería 1,100)."},
+    {"q":"Interés COMPUESTO: 1,000 al 10% por 2 años. ¿Total?","op":{"a":"1,200","b":"1,210","c":"1,100","d":"1,220"},"ok":"b","exp":"Año1: 1,100. Año2: 1,100 x 1.10 = 1,210 (interés sobre interés)."},
+    {"q":"Inflación 5% y tu inversión rinde 5%. ¿Ganancia REAL?","op":{"a":"10%","b":"5%","c":"0% (apenas empatas)","d":"-5%"},"ok":"c","exp":"El rendimiento real = rendimiento - inflación = 0%."},
+    {"q":"'Interés sobre interés' describe...","op":{"a":"interés simple","b":"interés compuesto","c":"inflación","d":"IVA"},"ok":"b","exp":"El compuesto genera interés también sobre los intereses previos."}
+  ],
+  "M8": [
+    {"q":"Si sube la demanda y la oferta no cambia, el precio tiende a...","op":{"a":"subir","b":"bajar","c":"quedarse igual","d":"desaparecer"},"ok":"a","exp":"Más demanda con misma oferta empuja el precio hacia arriba."},
+    {"q":"Hay más oferta que demanda (exceso). El precio tiende a...","op":{"a":"subir","b":"bajar","c":"no cambiar","d":"duplicarse"},"ok":"b","exp":"Sobra producto, los vendedores bajan precio."},
+    {"q":"El precio de equilibrio es donde...","op":{"a":"la oferta supera a la demanda","b":"oferta = demanda","c":"no hay compradores","d":"el gobierno fija el precio"},"ok":"b","exp":"Equilibrio: lo que se ofrece = lo que se demanda."},
+    {"q":"Escasez (shortage) ocurre cuando...","op":{"a":"oferta > demanda","b":"demanda > oferta al precio actual","c":"el precio es muy alto","d":"nadie compra"},"ok":"b","exp":"Falta producto porque se demanda más de lo que se ofrece."}
+  ],
+  "M9": [
+    {"q":"Una acción representa...","op":{"a":"un préstamo a la empresa","b":"una parte de propiedad de la empresa","c":"un bono","d":"un impuesto"},"ok":"b","exp":"Comprar una acción = ser dueño de una pequeña parte."},
+    {"q":"El 'bid' es...","op":{"a":"el precio al que alguien quiere comprar","b":"el precio al que alguien vende","c":"el volumen","d":"el cierre"},"ok":"a","exp":"Bid = mejor postor de compra."},
+    {"q":"El 'ask' es...","op":{"a":"el precio de compra","b":"el precio al que alguien quiere vender","c":"el dividendo","d":"la mediana"},"ok":"b","exp":"Ask = precio que piden los vendedores."},
+    {"q":"En Yahoo Finance, 'Market Cap' se calcula...","op":{"a":"precio ÷ acciones","b":"precio × número de acciones","c":"precio + dividendo","d":"volumen × precio"},"ok":"b","exp":"Capitalización = precio por acción × acciones en circulación."},
+    {"q":"En Yahoo Finance, 'Volume' indica...","op":{"a":"el precio máximo","b":"cuántas acciones se operaron","c":"el dividendo","d":"la deuda"},"ok":"b","exp":"Volumen = cantidad de acciones negociadas en el periodo."}
+  ],
+  "M10": [
+    {"q":"Una vela japonesa es ROJA cuando...","op":{"a":"el cierre es MAYOR que la apertura","b":"el cierre es MENOR que la apertura","c":"no hubo volumen","d":"subió el índice"},"ok":"b","exp":"Roja/bajista: cerró por debajo de donde abrió."},
+    {"q":"Una vela VERDE significa que...","op":{"a":"cerró abajo de la apertura","b":"cerró arriba de la apertura","c":"no cambió","d":"bajó el volumen"},"ok":"b","exp":"Verde/alcista: el cierre quedó por encima de la apertura."},
+    {"q":"El 'cuerpo' de la vela va de...","op":{"a":"máximo a mínimo","b":"apertura a cierre","c":"bid a ask","d":"ayer a hoy"},"ok":"b","exp":"El cuerpo marca apertura y cierre; las mechas, los extremos."},
+    {"q":"OHLC significa...","op":{"a":"Open, High, Low, Close","b":"Order, Hold, Limit, Cash","c":"Oferta, Haber, Ley, Crédito","d":"Open, Hedge, Long, Call"},"ok":"a","exp":"Apertura, Máximo, Mínimo, Cierre: los 4 datos de la vela."}
+  ],
+  "M11": [
+    {"q":"Precio subiendo con volumen ALTO sugiere...","op":{"a":"distribución","b":"acumulación (compra fuerte)","c":"nada","d":"escasez"},"ok":"b","exp":"Subida con volumen = dinero entrando (acumulación)."},
+    {"q":"Velas rojas con volumen ALTO cerca de máximos sugiere...","op":{"a":"acumulación","b":"distribución (venta)","c":"equilibrio","d":"dividendos"},"ok":"b","exp":"Venta fuerte arriba = distribución, posible fin de subida."},
+    {"q":"El 'volumen' mide...","op":{"a":"el precio","b":"cuántas acciones cambiaron de manos","c":"la volatilidad","d":"el dividendo"},"ok":"b","exp":"Volumen = número de acciones operadas."},
+    {"q":"El precio sube pero con volumen MUY bajo. Es...","op":{"a":"una subida muy sólida","b":"un movimiento débil / poco convincente","c":"distribución","d":"escasez"},"ok":"b","exp":"Sin volumen que lo respalde, la subida es poco confiable."}
+  ],
+  "M12": [
+    {"q":"Vela verde grande + volumen alto = ...","op":{"a":"presión vendedora","b":"fuerte presión compradora","c":"sin interés","d":"error de datos"},"ok":"b","exp":"Cuerpo verde amplio con volumen = compradores dominando."},
+    {"q":"Para saber si una subida es sólida, miras...","op":{"a":"solo el precio","b":"precio Y volumen juntos","c":"solo el volumen","d":"el dividendo"},"ok":"b","exp":"Precio + volumen confirman la fuerza del movimiento."},
+    {"q":"El 'Day's range' (rango del día) te dice...","op":{"a":"el mínimo y máximo de hoy","b":"el rango del año","c":"el dividendo","d":"el P/E"},"ok":"a","exp":"Dónde se movió el precio dentro del día."},
+    {"q":"El '52-week range' te dice...","op":{"a":"el rango de hoy","b":"el mínimo y máximo del último año","c":"el volumen promedio","d":"la capitalización"},"ok":"b","exp":"Dónde está el precio respecto a su año (52 semanas)."}
+  ],
+  "M13": [
+    {"q":"Banxico es...","op":{"a":"la bolsa de valores","b":"el banco central de México","c":"un banco comercial","d":"el SAT"},"ok":"b","exp":"Banco de México: controla la política monetaria."},
+    {"q":"Si Banxico SUBE la tasa de referencia, el crédito se vuelve...","op":{"a":"más barato","b":"más caro","c":"gratis","d":"igual"},"ok":"b","exp":"Tasas más altas encarecen préstamos e hipotecas."},
+    {"q":"Tasas de interés más altas suelen...","op":{"a":"acelerar la inflación","b":"frenar la inflación (y la economía)","c":"no tener efecto","d":"subir el empleo"},"ok":"b","exp":"Encarecen el crédito, baja el gasto y se enfría la inflación."},
+    {"q":"La tasa de referencia influye directamente en...","op":{"a":"el clima","b":"cetes, créditos e hipotecas","c":"el IVA","d":"los dividendos"},"ok":"b","exp":"Es la tasa base que arrastra a las demás."}
+  ],
+  "M14": [
+    {"q":"Estanflación es la combinación de...","op":{"a":"inflación baja y mucho crecimiento","b":"inflación alta con economía estancada y desempleo","c":"deflación y pleno empleo","d":"solo inflación alta"},"ok":"b","exp":"Estancamiento + inflación al mismo tiempo: lo peor de ambos."},
+    {"q":"Lo difícil de la estanflación es que...","op":{"a":"no tiene solución con tasas","b":"subir tasas frena la inflación pero daña más el empleo","c":"siempre se arregla sola","d":"baja los precios rápido"},"ok":"b","exp":"Las herramientas chocan: curar una cosa empeora la otra."},
+    {"q":"¿Qué describe mejor la estanflación?","op":{"a":"precios bajan, crecimiento sube","b":"precios suben, crecimiento no","c":"todo sube","d":"todo baja"},"ok":"b","exp":"Precios al alza sin crecimiento económico."},
+    {"q":"Un ejemplo histórico clásico de estanflación fue...","op":{"a":"los años 2020","b":"los años 70 (crisis del petróleo)","c":"los años 90","d":"la Gran Depresión"},"ok":"b","exp":"La crisis petrolera de los 70 es el caso de libro de texto."}
+  ],
+  "M15": [
+    {"q":"La política MONETARIA la maneja...","op":{"a":"el gobierno con impuestos","b":"el banco central (Banxico) con las tasas","c":"la bolsa","d":"las empresas"},"ok":"b","exp":"Monetaria = tasas y dinero, la controla Banxico."},
+    {"q":"La política FISCAL la maneja...","op":{"a":"el banco central","b":"el gobierno, vía gasto público e impuestos","c":"los bancos comerciales","d":"el FMI"},"ok":"b","exp":"Fiscal = gasto e impuestos, la decide el gobierno."},
+    {"q":"Bajar impuestos y subir el gasto público es política fiscal...","op":{"a":"expansiva","b":"restrictiva","c":"neutral","d":"monetaria"},"ok":"a","exp":"Expansiva: mete más dinero a la economía."},
+    {"q":"Subir la tasa de interés es política monetaria...","op":{"a":"expansiva","b":"restrictiva (contractiva)","c":"fiscal","d":"neutral"},"ok":"b","exp":"Restrictiva: frena el crédito y el gasto."}
+  ],
+  "M16": [
+    {"q":"Un bono es...","op":{"a":"una parte de propiedad de una empresa","b":"un préstamo que le haces a un gobierno o empresa","c":"una acción","d":"un impuesto"},"ok":"b","exp":"Al comprar un bono prestas dinero y te pagan intereses."},
+    {"q":"Los CETES son...","op":{"a":"acciones de la BMV","b":"deuda de corto plazo del gobierno mexicano","c":"criptomonedas","d":"un ETF"},"ok":"b","exp":"Certificados de la Tesorería: deuda gubernamental de corto plazo."},
+    {"q":"Se llama 'renta fija' porque...","op":{"a":"el precio nunca cambia","b":"el rendimiento se conoce de antemano","c":"no paga nada","d":"es solo para ricos"},"ok":"b","exp":"Sabes cuánto te pagará desde el inicio."},
+    {"q":"Si SUBEN las tasas de interés, el precio de un bono ya emitido...","op":{"a":"sube","b":"baja","c":"no cambia","d":"se duplica"},"ok":"b","exp":"Los bonos viejos pagan menos que los nuevos, así que valen menos."},
+    {"q":"Comparado con una acción, un CETE tiene...","op":{"a":"más riesgo","b":"menor riesgo","c":"el mismo riesgo","d":"riesgo infinito"},"ok":"b","exp":"Deuda del gobierno = de los activos más seguros del país."}
+  ],
+  "M17": [
+    {"q":"Si USD/MXN pasa de 17 a 18, el peso...","op":{"a":"se apreció","b":"se depreció (vale menos)","c":"no cambió","d":"desapareció"},"ok":"b","exp":"Hacen falta más pesos por dólar: el peso vale menos."},
+    {"q":"Un peso más débil hace las importaciones...","op":{"a":"más baratas","b":"más caras","c":"gratis","d":"iguales"},"ok":"b","exp":"Pagas más pesos por lo que viene de fuera."},
+    {"q":"El 'tipo de cambio' USD/MXN es...","op":{"a":"cuántos dólares cuesta un peso","b":"cuántos pesos cuesta un dólar","c":"la tasa de Banxico","d":"el IVA del dólar"},"ok":"b","exp":"Es el precio del dólar en pesos."},
+    {"q":"Si el peso se APRECIA, el USD/MXN...","op":{"a":"sube","b":"baja","c":"no cambia","d":"se vuelve negativo"},"ok":"b","exp":"Peso más fuerte = se necesitan menos pesos por dólar."}
+  ],
+  "M18": [
+    {"q":"Diversificar significa...","op":{"a":"poner todo en un solo activo","b":"repartir en varios activos distintos","c":"vender todo","d":"comprar solo una acción"},"ok":"b","exp":"Distribuir para no depender de uno solo."},
+    {"q":"'No pongas todos los huevos en una canasta' se refiere a...","op":{"a":"ahorro","b":"diversificación","c":"inflación","d":"impuestos"},"ok":"b","exp":"Es la idea misma de diversificar."},
+    {"q":"El objetivo principal de diversificar es...","op":{"a":"garantizar ganancias","b":"reducir el riesgo","c":"evitar impuestos","d":"subir la inflación"},"ok":"b","exp":"Baja el impacto si a un activo le va mal."},
+    {"q":"En general, mayor rendimiento esperado viene con...","op":{"a":"menor riesgo","b":"mayor riesgo","c":"cero riesgo","d":"menos tiempo"},"ok":"b","exp":"Más retorno potencial suele implicar más riesgo."}
+  ],
+  "M19": [
+    {"q":"Un ETF es...","op":{"a":"una sola acción de una empresa","b":"una canasta de muchos activos que cotiza como una acción","c":"un bono del gobierno","d":"una cuenta de ahorro"},"ok":"b","exp":"Exchange-Traded Fund: muchos activos en un solo instrumento que se compra como acción."},
+    {"q":"Un fondo indizado busca...","op":{"a":"ganarle siempre al mercado","b":"replicar un índice (p.ej. IPC o S&P 500)","c":"solo comprar bonos","d":"predecir el futuro"},"ok":"b","exp":"Copia un índice en vez de escoger acciones una por una."},
+    {"q":"Ventaja clave de un ETF indizado...","op":{"a":"garantiza ganancias","b":"diversificación barata en una sola compra","c":"no tiene riesgo","d":"no cobra nada nunca"},"ok":"b","exp":"Compras decenas o cientos de empresas de un jalón, a bajo costo."},
+    {"q":"El IPC es...","op":{"a":"un impuesto","b":"el índice principal de la Bolsa Mexicana (BMV)","c":"un banco","d":"una criptomoneda"},"ok":"b","exp":"Índice de Precios y Cotizaciones: mide a las grandes empresas de la BMV."}
+  ]
+}

@@ -1,0 +1,13 @@
+TUTOR_2_LEARN_LOCALLY
+v1.2.0 (2026-11-12)
+
+Changelog:
+- v1.0.0  Local Ollama tutor; modes A (guided) and B (vector RAG);
+          multiple-choice exams; live HTML report.
+- v1.1.0  PDF/TXT/MD ingestion -> course; LLM-wiki as a 2nd memory type
+          (selectable in menu); personalized student profile.
+- v1.2.0  Robust ingestion (Ollama format=json, module normalizer, resume
+          + --restart on every generator, incremental/crash-safe saves);
+          standalone exam regenerator (generate_quizzes.py); shuffled exam
+          options; Mode B online fallback (DuckDuckGo) with reference links
+          when an answer is not in the course.
